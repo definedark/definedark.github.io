@@ -1,72 +1,42 @@
-<!doctype html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Portfolio | Developer</title>
+        <meta charset="utf-8" />
+        <title>TITLE</title>
         <style>
-            :root {
-                --bg: #121212;
-                --text: #e0e0e0;
-                --accent: #00ff9d;
-                --secondary: #888;
-            }
-            body {
-                font-family:
-                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-                    Helvetica, Arial, sans-serif;
-                background-color: var(--bg);
-                color: var(--text);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                margin: 0;
-                text-align: center;
-            }
-            .container {
-                max-width: 600px;
-                padding: 20px;
-            }
-            h1 {
-                font-size: 2.5rem;
-                margin-bottom: 10px;
-                color: var(--accent);
-            }
-            p {
-                font-size: 1.1rem;
-                color: var(--secondary);
-                line-height: 1.6;
-            }
-            .status-badge {
-                display: inline-block;
-                padding: 5px 15px;
-                border: 1px solid var(--accent);
-                color: var(--accent);
-                border-radius: 20px;
-                font-size: 0.8rem;
-                margin-bottom: 20px;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-            }
-            .links {
-                margin-top: 30px;
-            }
-            a {
-                color: var(--text);
-                text-decoration: none;
-                border-bottom: 1px dotted var(--secondary);
-                transition: color 0.3s;
-            }
-            a:hover {
-                color: var(--accent);
-                border-bottom: 1px solid var(--accent);
+            html,
+            body,
+            canvas {
+                margin: 0px;
+                padding: 0px;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                position: absolute;
+                background: black;
+                z-index: 0;
             }
         </style>
     </head>
+
     <body>
-        <div class="container">
-            <div class="status-badge">System: Rebuilding</div>
-        </div>
+        <canvas id="glcanvas" tabindex="1"></canvas>
+        <!-- Minified and statically hosted version of https://github.com/not-fl3/macroquad/blob/master/js/mq_js_bundle.js -->
+        <script src="mq_js_bundle.js"></script>
+        <script src="sapp_jsutils.js"></script>
+        <script src="quad-net.js"></script>
+        <script>
+            canvas.addEventListener("contextmenu", (e) => e.preventDefault());
+            function on_init() {}
+            register_plugin = function (importObject) {
+                importObject.env.native_open_url = native_open_url;
+            };
+            miniquad_add_plugin({ register_plugin, on_init });
+            function native_open_url(s) {
+                const url = consume_js_object(s);
+                window.open(url, "_blank");
+            }
+            load("web_terminal_rs.wasm");
+        </script>
+        <!-- Your compiled wasm file -->
     </body>
 </html>
